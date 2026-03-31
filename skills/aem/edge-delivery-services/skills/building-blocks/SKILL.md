@@ -17,6 +17,21 @@ If you are not already following the CDD process, STOP and invoke the **content-
 - **block-collection-and-party**: Use to find similar blocks for patterns
 - **testing-blocks**: Automatically invoked during Step 5 for comprehensive testing
 
+## CBA Block Specifications
+
+For the CommBank (commbank.com.au) migration, individual block specifications with DOM structure, CSS, JS decoration, UE fields, and CBA-specific notes are available at:
+
+**`resources/blocks/INDEX.md`** — Full index of all 20 CBA block specs
+
+Quick links to the most commonly needed blocks:
+- **Sprint 1**: [hero](resources/blocks/hero.md) · [announcement-banner](resources/blocks/announcement-banner.md) · [anchor-tile-nav](resources/blocks/anchor-tile-nav.md) · [header](resources/blocks/header.md) · [footer](resources/blocks/footer.md)
+- **Sprint 2**: [product-card](resources/blocks/product-card.md) · [rate-display](resources/blocks/rate-display.md) · [feature-grid](resources/blocks/feature-grid.md) · [modal-apply](resources/blocks/modal-apply.md) · [footnotes](resources/blocks/footnotes.md)
+- **Sprint 3**: [in-page-nav](resources/blocks/in-page-nav.md) · [step-process](resources/blocks/step-process.md) · [rates-fees-table](resources/blocks/rates-fees-table.md)
+- **Sprint 4**: [article-cards](resources/blocks/article-cards.md) · [promo-offer-banner](resources/blocks/promo-offer-banner.md) · [partner-block](resources/blocks/partner-block.md) · [support-cards](resources/blocks/support-cards.md) · [app-download](resources/blocks/app-download.md) · [featured-content](resources/blocks/featured-content.md)
+- **Sprint 5**: [rate-calculator](resources/blocks/rate-calculator.md) · [newsroom-listing](resources/blocks/newsroom-listing.md) · [loyalty-tiers](resources/blocks/loyalty-tiers.md) · [contact-form](resources/blocks/contact-form.md)
+
+Always read the relevant block spec before implementing a CBA block.
+
 ## When to Use This Skill
 
 This skill is invoked automatically by **content-driven-development** during Step 5 (Implementation). It handles:
