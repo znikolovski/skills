@@ -12,6 +12,9 @@ Repository of Adobe skills for AI coding agents.
 
 # Install AEM Edge Delivery Services plugin (all 17 skills)
 /plugin install aem-edge-delivery-services@adobe-skills
+
+# Install AEM Project Management plugin (6 skills)
+/plugin install aem-project-management@adobe-skills
 ```
 
 ### Vercel Skills (npx skills)
@@ -85,23 +88,68 @@ gh upskill adobe/skills --path skills/aem/edge-delivery-services --list
 | `generate-import-html` | Generate structured HTML |
 | `preview-import` | Preview imported content |
 
+### AEM Project Management
+
+Project lifecycle management for AEM Edge Delivery Services including handover documentation, PDF generation, and authentication.
+
+> **Requirement:** This plugin is exclusively for AEM Edge Delivery Services projects. It validates projects by checking for `scripts/aem.js`. For non-Edge Delivery projects, the plugin exits early — use standard documentation approaches instead.
+
+**Quick Start:**
+```bash
+cd your-edge-delivery-project   # or any subdirectory within it
+# Say: "create handover documentation for this project"
+```
+
+**Setup:** You will be prompted for your Config Service organization name (the `{org}` in `https://main--site--{org}.aem.page`). A browser window will open for authentication — sign in and **close the browser window** to continue.
+
+**Permissions:** Admin access to the project organization is required. The plugin queries the Config Service API to gather project configuration, site settings, and access controls for comprehensive documentation.
+
+**Output:** Professional PDFs generated in `project-guides/` folder:
+- `project-guides/AUTHOR-GUIDE.pdf` - For content authors
+- `project-guides/DEVELOPER-GUIDE.pdf` - For developers
+- `project-guides/ADMIN-GUIDE.pdf` - For administrators
+
+| Skill | Description |
+|-------|-------------|
+| `handover` | Orchestrates project documentation generation |
+| `authoring` | Generate comprehensive authoring guide for content authors |
+| `development` | Generate technical documentation for developers |
+| `admin` | Generate admin guide for site administrators |
+| `whitepaper` | Create professional PDF whitepapers from Markdown |
+| `auth` | Authenticate with AEM Config Service API |
+
 ## Repository Structure
 
 ```
 skills/
 └── aem/
-    └── edge-delivery-services/
+    ├── edge-delivery-services/
+    │   ├── .claude-plugin/
+    │   │   └── plugin.json
+    │   └── skills/
+    │       ├── content-driven-development/
+    │       ├── building-blocks/
+    │       └── ...
+    └── project-management/
         ├── .claude-plugin/
         │   └── plugin.json
+        ├── fonts/
+        ├── hooks/
+        │   └── pdf-lifecycle.js
+        ├── templates/
+        │   └── whitepaper.typ
         └── skills/
-            ├── content-driven-development/
-            ├── building-blocks/
-            └── ...
+            ├── handover/
+            ├── authoring/
+            ├── development/
+            ├── admin/
+            ├── whitepaper/
+            └── auth/
 ```
 
 ## Contributing
 
-See [CONTRIBUTING.md](CONTRIBUTING.md) for guidelines on adding or updating skills.
+See [CONTRIBUTING.md](CONTRIBUTING.md) for guidelines on adding or updating skills. Join [#agentskills](https://adobe.enterprise.slack.com/archives/C0APTKDNPEY) on Adobe Slack for questions and discussion.
 
 ## Resources
 
@@ -109,6 +157,7 @@ See [CONTRIBUTING.md](CONTRIBUTING.md) for guidelines on adding or updating skil
 - [Claude Code Plugins](https://code.claude.com/docs/en/discover-plugins)
 - [Vercel Skills](https://github.com/vercel-labs/skills)
 - [upskill GitHub Extension](https://github.com/trieloff/gh-upskill)
+- [#agentskills Slack Channel](https://adobe.enterprise.slack.com/archives/C0APTKDNPEY)
 
 ## License
 
