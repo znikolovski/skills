@@ -22,6 +22,25 @@ Use this skill after the extension passes `build-extension` (and ideally `valida
 
 ## AIO CLI Is Required
 
+### Authentication Failure Recovery
+
+If any `aio` command fails with an authentication error, the agent MUST:
+
+1. **Stop** execution of the current step immediately.
+2. **Inform the user** that re-authentication is required and prompt them to run:
+   ```bash
+   aio login
+   ```
+3. **Wait** for the user to confirm the login succeeded (browser auth flow completes).
+4. **Retry** the failed command from the beginning of that step.
+
+Common auth error indicators to watch for:
+- `Error: You are not logged in`
+- `Error: jwt expired` / `Error: jwt malformed` / `Error: invalid_token`
+- HTTP 401 in any `aio` command output
+- `Error: context not configured`
+- `Error: No IMS context found`
+
 This skill MUST use the AIO CLI for all deployment and promotion operations:
 
 ```bash

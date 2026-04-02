@@ -148,6 +148,9 @@ Understanding the UIX architecture helps pinpoint where failures occur:
 | AEM API returns 403 | Insufficient AEM permissions | Grant the service user or delegated user correct AEM permissions |
 | Token delegation fails | Wrong token type | Verify user token delegation vs service token flow |
 | "Invalid client" error | Wrong client ID / credentials | Verify workspace credentials: `aio app use` |
+| `Error: You are not logged in` | AIO CLI session expired | Run `aio login`, then retry the failed command |
+| `Error: jwt expired` / `jwt malformed` / `invalid_token` | Expired IMS token | Run `aio login`, then retry the failed command |
+| `Error: context not configured` / `No IMS context found` | No saved AIO login context | Run `aio login`, then `aio app use`, then retry |
 
 ### Category 5: Deployment and Environment Issues
 
@@ -177,6 +180,10 @@ The agent MUST:
 
 1. **Identify the host** (CFE, UE, CF Console, Experience Hub) and the failing extension point(s).
 2. **Classify the failure** using the layered architecture model above (Layer 1-5). Start from the top layer and work down.
+3. **Detect and recover from AIO authentication failures**: if any `aio` diagnostic command (e.g., `aio where`, `aio app logs`, `aio app info`) fails with an auth error (`not logged in`, `jwt expired`, `invalid_token`, `context not configured`, HTTP 401), the agent MUST:
+   - Stop the current diagnostic step.
+   - Prompt the user to run `aio login` and complete the browser auth flow.
+   - After the user confirms login, re-run the failed command and continue troubleshooting from that point.
 3. **Request or infer minimal diagnostics** without stalling:
    - Browser console errors (screenshots or copy-paste)
    - `aio app logs` output (for action failures)

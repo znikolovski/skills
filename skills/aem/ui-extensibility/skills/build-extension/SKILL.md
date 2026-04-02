@@ -19,7 +19,44 @@ Use this skill after `analyze-and-plan` and `scaffold-extension` to:
 
 ---
 
+## Bootstrap Script
+
+A ready-to-run bash template is provided to create and verify a new extension project:
+
+```bash
+# Create a new extension project (interactive)
+./scripts/create-extension.sh
+
+# Or pass arguments directly: <project-name> <surface>
+# Surfaces: cfe | ue | cfc | xp
+./scripts/create-extension.sh my-cfe-extension cfe
+```
+
+The script handles: prerequisite checks, AIO login, org/project/workspace selection,
+`aio app init` with the correct template, `npm install`, and a verification build.
+
+---
+
 ## AIO CLI Is Required
+
+### Authentication Failure Recovery
+
+If any `aio` command fails with an authentication error, the agent MUST:
+
+1. **Stop** execution of the current step immediately.
+2. **Inform the user** that re-authentication is required and prompt them to run:
+   ```bash
+   aio login
+   ```
+3. **Wait** for the user to confirm the login succeeded (browser auth flow completes).
+4. **Retry** the failed command from the beginning of that step.
+
+Common auth error indicators to watch for:
+- `Error: You are not logged in`
+- `Error: jwt expired` / `Error: jwt malformed` / `Error: invalid_token`
+- HTTP 401 in any `aio` command output
+- `Error: context not configured`
+- `Error: No IMS context found`
 
 This skill uses the AIO CLI for local development and building:
 
